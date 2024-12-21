@@ -17,48 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener el nombre personalizado desde el formulario
         $customFileName = isset($_POST['customName']) ? trim($_POST['customName']) : '';
         
-        // Si no se proporciona un nombre, se usa el nombre original
-        if (empty($customFileName)) {
-            $customFileName = pathinfo($fileName, PATHINFO_FILENAME);
-        }
-
-        // Limitar caracteres para evitar problemas
-        $customFileName = preg_replace("/[^a-zA-Z0-9_-]/", "_", $customFileName); // Limita los caracteres a lo permitido
-
-        // Verifica el tamaño del archivo
-        if ($fileSize > MAX_FILE_SIZE) {
-            $error = "El archivo es demasiado grande. El tamaño máximo permitido es de 2 MB.";
-        }
-
-        // Verifica que el archivo sea en formato PNG
-        if ($fileType !== 'png') {
-            $error = "Solo se permiten imágenes en formato PNG.";
-        }
-
-        // Si no hay errores, mueve el archivo a la carpeta de destino
-        if (!$error) {
-            $targetFile = $targetDir . $customFileName . '.png'; // Aseguramos que el archivo será .png
-            if (move_uploaded_file($fileTmp, $targetFile)) {
-                echo "<div class='success'>La imagen se subió correctamente: <a href='$targetFile'>Ver imagen</a></div>";
-            } else {
-                $error = "Hubo un error al subir la imagen.";
-            }
-        }
-    } else {
-        // Mensaje específico cuando no se selecciona un archivo
-        $error = "No se seleccionó ningún archivo.";
-        $errorClass = 'error-black'; // Clase para el error específico de "falta de archivo"
-    }
-
-    // Mostrar mensaje de error con la clase correspondiente
-    if ($error) {
-        $errorClass = isset($errorClass) ? $errorClass : 'error'; // Usar error-black si es por falta de archivo
-        echo "<div class='$errorClass'>$error</div>";
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
