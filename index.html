@@ -1,22 +1,3 @@
-<?php
-// Definir el tamaño máximo del archivo (2MB)
-define('MAX_FILE_SIZE', 2 * 1024 * 1024); // 2 MB en bytes
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $error = '';
-    $targetDir = 'C:/uploads/'; // Asegúrate de que la carpeta uploads esté en el disco C
-
-    // Verifica si se cargó un archivo
-    if (isset($_FILES['image'])) {
-        $file = $_FILES['image'];
-        $fileName = basename($file['name']);
-        $fileSize = $file['size'];
-        $fileTmp = $file['tmp_name'];
-        $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        
-        // Obtener el nombre personalizado desde el formulario
-        $customFileName = isset($_POST['customName']) ? trim($_POST['customName']) : '';
-        
 <!DOCTYPE html>
 <html lang="es">
 <head>
